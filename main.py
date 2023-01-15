@@ -19,13 +19,18 @@ running = True
 
 # load pets from a local save
 pet1 = Pet('yae miko', 'assets/pets/p1.png', 'assets/backgrounds/b1.png', 1)
-pet2 = Pet('cute stolen cat', 'assets/pets/p2.png', 'assets/backgrounds/b2.png', 1)
+pet2 = Pet('cute cat', 'assets/pets/p2.png', 'assets/backgrounds/b2.png', 2)
 
-current_pet = pet1
+# set current pet
+
+current_pet = pet3
+
 
 # music :3
+
 bgm = pygame.mixer.Sound('assets/sound/bgm.wav')
 bgm.play(-1)
+
 
 # main game loop
 
