@@ -1,5 +1,6 @@
 import pygame, sys
-from pet import Pet, draw_pet
+from pet import Pet
+from pet_set import Pet_Set
 
 # initial pygame config
 
@@ -18,13 +19,13 @@ running = True
 
 
 # load pets from a local save
-pet1 = Pet('yae miko', 'assets/pets/p1.png', 'assets/backgrounds/b1.png', 1)
-pet2 = Pet('cute cat', 'assets/pets/p2.png', 'assets/backgrounds/b2.png', 2)
 
-# set current pet
 
-current_pet = pet3
 
+pets = Pet_Set([])
+pets.insert_pet(Pet('yae miko', 'assets/pets/p1.png', 'assets/backgrounds/b1.png'))
+pets.insert_pet(Pet('cute cat', 'assets/pets/p2.png', 'assets/backgrounds/b2.png'))
+pets.insert_pet(Pet('frog chan', 'assets/pets/p3.png', 'assets/backgrounds/b3.png'))
 
 # music :3
 
@@ -35,8 +36,14 @@ bgm.play(-1)
 # main game loop
 
 while running:
-    draw_pet(current_pet, screen)
+    pets.current.draw_pet(screen)
     for event in pygame.event.get():
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_0:
+                pets.change_pet(0)
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            pets.next_pet()
+            #pets.insert_pet(Pet('yae miko', 'assets/pets/p1.png', 'assets/backgrounds/b1.png'))
         if event.type == pygame.QUIT:
             running = False
  
