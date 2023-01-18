@@ -1,5 +1,6 @@
 import pygame
 import json
+from datetime import datetime
 
 from pet import Pet
 
@@ -44,8 +45,26 @@ class Pet_Set():
         with open(file, "r") as f:
             data = json.loads(f.read())
         for pet in data:
-            newpet = Pet(pet['name'], pet['image'], pet['background'])
+            newpet = Pet(
+                pet['name'], 
+                pet['image'], 
+                pet['background'], 
+                pet['health'], 
+                pet['hunger'], 
+                pet['thirst'], 
+                pet['happiness'],
+                datetime.strptime(pet['last_feed_date'], '%Y-%m-%d %H:%M:%S.%f'),
+                datetime.strptime(pet['last_water_date'], '%Y-%m-%d %H:%M:%S.%f'),
+                datetime.strptime(pet['last_cuddle_date'], '%Y-%m-%d %H:%M:%S.%f')
+            )
             self.insert_pet(newpet)
         self.current = self.pets[0]
     def save_file(self, file):
-        json_str = json.dumps(self.pets[0])
+        output = '['
+        for pet in self.pets:
+            json_pet = json.dumps(pet.__dict__, default=str)
+            output = output + json_pet
+            output = output + ',\n'
+        output = output[:-2] + ']'
+        with open(file, "w") as f:
+            f.write(output)

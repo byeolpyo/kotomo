@@ -9,5 +9,5 @@ def handle_events(event, pets):
         if event.key == pygame.K_n:
             pets.next_pet()
     if event.type == pygame.MOUSEBUTTONDOWN:
-        pets.current.modify_happiness(-10)
+        pets.current.feed()
         print(pets.pets[0].image)

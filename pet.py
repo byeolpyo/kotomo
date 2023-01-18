@@ -2,7 +2,19 @@ import pygame
 from datetime import datetime
 
 class Pet():
-    def __init__(self, name, image, background):
+    def __init__(
+        self, 
+        name, 
+        image, 
+        background, 
+        health=100, 
+        hunger = 100, 
+        thirst = 100, 
+        happiness = 100, 
+        last_feed_date = datetime.now(),
+        last_water_date = datetime.now(),
+        last_cuddle_date = datetime.now(),
+        ):
         # pet attributes
 
         # constructor variables
@@ -10,15 +22,14 @@ class Pet():
         self.image = image
         self.background = background
 
-        # 
-        self.health = 100
-        self.hunger = 100
-        self.thirst = 100
-        self.happiness = 100
+        self.health = health
+        self.hunger = hunger
+        self.thirst = thirst
+        self.happiness = happiness
 
-        self.last_feed_date = datetime.now() 
-        self.last_water_date = datetime.now()
-        self.last_cuddle_date = datetime.now()
+        self.last_feed_date = last_feed_date
+        self.last_water_date = last_water_date
+        self.last_cuddle_date = last_cuddle_date
 
  
     def modify_health(self, value):
@@ -55,6 +66,18 @@ class Pet():
     def recalculate_health(self):
         self.health = (self.hunger*self.thirst*self.happiness) ** (1/2)
         self.health = int(self.health/10)
+
+    def feed(self):
+        self.modify_hunger(-10)
+        self.last_feed_date = datetime.now()
+    
+    def water(self):
+        self.modify_thirst(-10)
+        self.last_water_date = datetime.now()
+    
+    def cuddle(self):
+        self.modify_happiness(-10)
+        self.last_cuddle_date = datetime.now()
 
     def draw_pet(self, screen):
         font = pygame.font.Font('assets/fonts/ui_font.ttf', 24) #actual font name - CuteAurora
