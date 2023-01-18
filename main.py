@@ -36,6 +36,7 @@ while running:
         handle_events(event, pets)
         if event.type == pygame.QUIT:
             print('wychodzeeee')
+            pets.save_file('saves/data.json')
             running = False
  
     clock.tick(60)
