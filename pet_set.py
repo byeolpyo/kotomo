@@ -1,7 +1,7 @@
 import pygame
-from pet import Pet
+import json
 
-#def load_saved_pets(pet_set, filename):
+from pet import Pet
 
 class Pet_Set():
     def __init__(self, pets):
@@ -38,3 +38,14 @@ class Pet_Set():
             return
         self.current_index = index 
         self.current = self.pets[self.current_index]
+    
+    def load_file(self, file):
+        self.pets = []
+        with open(file, "r") as f:
+            data = json.loads(f.read())
+        for pet in data:
+            newpet = Pet(pet['name'], pet['image'], pet['background'])
+            self.insert_pet(newpet)
+        self.current = self.pets[0]
+    def save_file(self, file):
+        json_str = json.dumps(self.pets[0])
