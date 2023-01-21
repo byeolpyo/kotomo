@@ -1,45 +1,20 @@
 import json
-from datetime import datetime, timedelta
+from datetime import datetime
 
+from collection import Collection
 from pet import Pet
-class Pet_Set():
+
+class Pet_Collection(Collection):
     def __init__(self, pets):
         # pet attributes
-        self.pets = pets
-        self.current_index = 0
-        self.size = len(pets)
+        super().__init__(pets)
         if self.size != 0:
             self.current = pets[self.current_index]
         else:
             self.current = Pet('NO PETS :c', 'assets/pets/DEFAULT.png', 'assets/backgrounds/DEFAULT.png')
-        
-
-    def insert_pet(self, pet):
-        if self.size == 0:
-            self.size = 1
-            self.pets = [pet]
-            self.current = pet
-            return
-        self.pets.append(pet)
-        self.size = self.size + 1
-
-    def next_pet(self):
-        if self.size == 0:
-            return
-        self.current_index = self.current_index + 1 
-        self.current_index = self.current_index % self.size
-        self.current = self.pets[self.current_index]
-    
-    def change_pet(self, index):
-        if self.size == 0:
-            return
-        if index >= self.size:
-            return
-        self.current_index = index 
-        self.current = self.pets[self.current_index]
-    
+         
     def load_file(self, file):
-        self.pets = []
+        self.vals = []
         with open(file, "r") as f:
             data = json.loads(f.read())
         for pet in data: 
@@ -56,12 +31,12 @@ class Pet_Set():
                 datetime.strptime(pet['last_cuddle_date'], '%Y-%m-%d %H:%M:%S.%f')
             )
             newpet.update_status()
-            self.insert_pet(newpet)
-        self.current = self.pets[0]
+            self.insert_val(newpet)
+        self.current = self.vals[0]
 
     def save_file(self, file):
         output = '['
-        for pet in self.pets:
+        for pet in self.vals:
             json_pet = json.dumps(pet.__dict__, default=str)
             output = output + json_pet
             output = output + ',\n'
