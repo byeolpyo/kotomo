@@ -9,7 +9,7 @@ def cursor_in_area(p1, p2):
     if xmin < pos[0] and pos[0] < xmax and ymin < pos[1] and pos[1] < ymax:
         return True
 
-def handle_events(event, pets):
+def handle_events(event, pets, foods):
     if event.type == pygame.KEYDOWN:
         if event.key == pygame.K_l:
             pets.load_file('saves/data.json')
@@ -18,9 +18,12 @@ def handle_events(event, pets):
         if event.key == pygame.K_n:
             pets.next_val()
         if event.key == pygame.K_1:
-            pets.current.feed()
-        if event.key == pygame.K_2:
-            pets.current.water()
+            pets.current.feed(foods.current)
+        
+        if event.key == pygame.K_6:
+            foods.previous_val()
+        if event.key == pygame.K_7:
+            foods.next_val()
         
         if event.key == pygame.K_r and pygame.key.get_mods() & pygame.KMOD_CTRL:
             pets.current.reset()

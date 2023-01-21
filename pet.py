@@ -45,32 +45,41 @@ class Pet():
             self.health = 0
 
     def modify_hunger(self, value):
-        self.hunger = self.hunger + value
+        before = self.hunger
+        self.hunger = before + value
         if (self.hunger > 100):
             self.hunger = 100
         if (self.hunger < 0):
             self.hunger = 0
-        self.hunger = int(self.hunger)
+        self.hunger = round(self.hunger)
+        if self.hunger != before:
+            self.last_feed_date = datetime.now()
     
     def modify_thirst(self, value):
-        self.thirst = self.thirst + value
+        before = self.thirst
+        self.thirst = before + value
         if (self.thirst > 100):
             self.thirst = 100
         if (self.thirst < 0):
             self.thirst = 0
-        self.thirst = int(self.thirst)
+        self.thirst = round(self.thirst)
+        if self.thirst != before:
+            self.last_water_date = datetime.now()
     
     def modify_happiness(self, value):
-        self.happiness = self.happiness + value
+        before = self.happiness
+        self.happiness = before + value
         if (self.happiness > 100):
             self.happiness = 100
         if (self.happiness < 0):
             self.happiness = 0
-        self.happiness = int(self.happiness)
+        self.happiness = round(self.happiness)
+        if self.happiness != before:
+            self.last_cuddle_date = datetime.now()
         
     def update_health(self):
         self.health = (self.hunger*self.thirst*self.happiness) ** (1/2)
-        self.health = int(self.health/10)
+        self.health = round(self.health/10)
 
     def update_status(self):
         self.modify_hunger(timedif_hours(self.last_feed_date)*(-4))
@@ -80,28 +89,40 @@ class Pet():
         if self.health == 0:
             self.is_alive = False
 
-    def feed(self):
+    def feed(self, food):
         if self.is_alive == False:
             return 
-        self.modify_hunger(10)
-        self.last_feed_date = datetime.now()
-        self.update_health() 
-
-    def water(self):
-        if self.is_alive == False:
-            return 
-        self.modify_thirst(10)
-        self.last_water_date = datetime.now()
+        vals = food.get_values()
+        if vals[0] > 0:
+            self.modify_hunger(self.hunger+vals[0])
+            self.last_feed_date = datetime.now()
+        if vals[1] > 0:
+            self.modify_thirst(self.thirst+vals[1])
+            self.last_water_date = datetime.now()
+        if vals[2] > 0:
+            self.modify_happiness(self.happiness+vals[2])
         self.update_health() 
     
     def cuddle(self):
         if self.is_alive == False:
             return 
-        self.modify_happiness(10)
+        self.modify_happiness(self.happiness+20)
         self.last_cuddle_date = datetime.now()
         self.update_health() 
 
+    def reset(self):
+        self.health = 100 
+        self.hunger = 100
+        self.thirst = 100 
+        self.happiness = 100 
+        self.last_feed_date = datetime.now()
+        self.last_water_date = datetime.now()
+        self.last_cuddle_date = datetime.now()
+        self.is_alive = True
+        self.update_status()
+    
     def draw_pet(self, screen):
+        self.update_status()
         font = pygame.font.Font('assets/fonts/ui_font.ttf', 24) #actual font name - CuteAurora
         
         name_s = "current pet: {}".format(self.name)
@@ -130,13 +151,3 @@ class Pet():
         screen.blit(happiness, (32, 160))
         if self.is_alive == False:
             screen.blit(death, (160, 340))
-    
-    def reset(self):
-        self.health = 100 
-        self.hunger = 100 
-        self.thirst = 100 
-        self.happiness = 100 
-        self.last_feed_date = datetime.now()
-        self.last_water_date = datetime.now()
-        self.last_cuddle_date = datetime.now()
-        self.is_alive = True

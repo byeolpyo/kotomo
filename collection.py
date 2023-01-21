@@ -4,7 +4,7 @@ class Collection():
         self.vals = vals
         self.current_index = 0
         self.size = len(vals)
-    
+            
     def insert_val(self, val):
         if self.size == 0:
             self.size = 1

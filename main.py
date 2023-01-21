@@ -1,6 +1,8 @@
 import pygame
 from pet_collection import Pet_Collection
 from events import handle_events, is_event_quit
+from food import Food
+from food_collection import init_foods,  Food_Collection
 
 # initial pygame config
 
@@ -17,10 +19,14 @@ screensize = pygame.display.get_window_size()
 running = True
 
 
-# load pets from a local save
+# initial pets setup - load pets from a local save
 
 pets = Pet_Collection([])
 pets.load_file('saves/data.json')
+
+# initial food setup (food is hardcoded in)
+
+foods = init_foods()
 
 # music
 
@@ -32,8 +38,9 @@ bgm.play(-1)
 
 while running:
     pets.current.draw_pet(screen)
+    foods.current.draw_food(screen)
     for event in pygame.event.get():
-        handle_events(event, pets)
+        handle_events(event, pets, foods)
         if is_event_quit(event):
             if pets.size != 0:
                 print('zapisuje...')
