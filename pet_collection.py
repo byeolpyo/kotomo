@@ -6,8 +6,10 @@ from pet import Pet
 
 def init_pets():
     pets = [
+        Pet('small puppy', 'assets/pets/p1.png', 'assets/backgrounds/b1.png'),
         Pet('cute cat', 'assets/pets/p2.png', 'assets/backgrounds/b2.png'),
-        Pet('frog chan', 'assets/pets/p3.png', 'assets/backgrounds/b3.png')
+        Pet('frog chan', 'assets/pets/p3.png', 'assets/backgrounds/b3.png'),
+        Pet('bunny', 'assets/pets/p4.png', 'assets/backgrounds/b4.png'),
     ]
     return Pet_Collection(pets)
 

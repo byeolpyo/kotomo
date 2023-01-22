@@ -19,7 +19,6 @@ screen=pygame.display.set_mode((512,512))
 screensize = pygame.display.get_window_size()
 running = True
 
-
 # initial pets setup - load pets from a local save
 
 pets = Pet_Collection([])
