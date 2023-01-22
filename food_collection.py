@@ -3,9 +3,9 @@ from food import Food
 
 def init_foods():
     foods = [
-        Food('pepsi', 'assets/foods/f1.png', 0, 5, -2),
-        Food('candy', 'assets/foods/f2.png', 2, 0, 2),
-        Food('borgir', 'assets/foods/f3.png', 10, 0, 0)
+        Food('ice cream', 'assets/foods/f1.png', 2, 0, 5),
+        Food('water', 'assets/foods/f2.png', 0, 10, 2),
+        Food('pancake', 'assets/foods/f3.png', 10, 0, 0)
     ]
     return Food_Collection(foods)
 
