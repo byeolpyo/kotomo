@@ -19,10 +19,10 @@ python main.py
 the goal of the game is to keep your pets alive.
 
 each pet has 4 values associated with it:
-    - **health** - you cannot influence it directly, but it is calculated using all of other values instead,
-    - **hunger**,
-    - **thirst**,
-    - **happiness**.
+- **health** - you cannot influence it directly, but it is calculated using all of other values instead,
+- **hunger**,
+- **thirst**,
+- **happiness**.
 
 these values decrease as time passes.
 you can improve your pets' status by feeding them food (done by clicking **on the food**) or by cuddling (by clicking **on the pet**).
