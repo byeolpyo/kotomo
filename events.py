@@ -11,26 +11,25 @@ def cursor_in_area(p1, p2):
 
 def handle_events(event, pets, foods):
     if event.type == pygame.KEYDOWN:
-        if event.key == pygame.K_l:
-            pets.load_file('saves/data.json')
-        if event.key == pygame.K_s:
-            pets.save_file('saves/data.json')
         if event.key == pygame.K_n:
             pets.next_val()
-        if event.key == pygame.K_1:
-            pets.current.feed(foods.current)
-        
-        if event.key == pygame.K_6:
-            foods.previous_val()
-        if event.key == pygame.K_7:
-            foods.next_val()
         
         if event.key == pygame.K_r and pygame.key.get_mods() & pygame.KMOD_CTRL:
             pets.current.reset()
 
-    if event.type == pygame.MOUSEBUTTONDOWN:
-        if cursor_in_area((192, 192), (320, 320)) and pygame.mouse.get_pressed()[0] == True:
+    if event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0] == True:
+        if cursor_in_area((192, 192), (320, 320)):
             pets.current.cuddle()
+        if cursor_in_area((208, 384), (304, 480)):
+            pets.current.feed(foods.current)
+        
+        if cursor_in_area((160, 408), (208, 456)):
+            foods.previous_val()
+        if cursor_in_area((304, 408), (352, 456)):
+            foods.next_val()
+        
+        if cursor_in_area((384, 32), (480, 80)):
+            pets.next_val()
 
 def is_event_quit(event):
     if event.type == pygame.QUIT:

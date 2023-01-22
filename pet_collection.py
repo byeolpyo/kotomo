@@ -4,6 +4,13 @@ from datetime import datetime
 from collection import Collection
 from pet import Pet
 
+def init_pets():
+    pets = [
+        Pet('cute cat', 'assets/pets/p2.png', 'assets/backgrounds/b2.png'),
+        Pet('frog chan', 'assets/pets/p3.png', 'assets/backgrounds/b3.png')
+    ]
+    return Pet_Collection(pets)
+
 class Pet_Collection(Collection):
     def __init__(self, pets):
         # pet attributes

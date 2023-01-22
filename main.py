@@ -1,8 +1,9 @@
 import pygame
-from pet_collection import Pet_Collection
 from events import handle_events, is_event_quit
-from food import Food
-from food_collection import init_foods,  Food_Collection
+from ui import draw_ui
+
+from pet_collection import Pet_Collection, init_pets
+from food_collection import init_foods
 
 # initial pygame config
 
@@ -22,7 +23,11 @@ running = True
 # initial pets setup - load pets from a local save
 
 pets = Pet_Collection([])
-pets.load_file('saves/data.json')
+try:
+    pets.load_file('saves/data.json')
+except:
+    print("nie znaleziono pliku w saves, tworze nowy...")
+    pets = init_pets()
 
 # initial food setup (food is hardcoded in)
 
@@ -39,6 +44,7 @@ bgm.play(-1)
 while running:
     pets.current.draw_pet(screen)
     foods.current.draw_food(screen)
+    draw_ui(screen)
     for event in pygame.event.get():
         handle_events(event, pets, foods)
         if is_event_quit(event):

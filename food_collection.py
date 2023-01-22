@@ -7,8 +7,7 @@ def init_foods():
         Food('candy', 'assets/foods/f2.png', 2, 0, 2),
         Food('borgir', 'assets/foods/f3.png', 10, 0, 0)
     ]
-    ret = Food_Collection(foods)
-    return ret
+    return Food_Collection(foods)
 
 class Food_Collection(Collection):
     def __init__(self, foods):
